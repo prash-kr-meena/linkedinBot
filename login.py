@@ -1,10 +1,36 @@
-from dependencies import *
+from selenium.common import ElementNotVisibleException, ElementNotSelectableException
 
-driver = webdriver.Chrome()
-driver.get("https://www.linkedin.com")
+from chrome_driver import driver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
 
-username = driver.find_element_by_id("session_key")
-username.send_keys(config.username)
-password = driver.find_element_by_id("session_password")
-password.send_keys(config.password)
-driver.find_element_by_class_name("sign-in-form__submit-button").click()
+import config
+import random
+from config import *
+
+
+def login():
+    print(" ----- Initiating Login ----")
+
+    linkedin_url = "https://www.linkedin.com"
+    print("Opening Linkedin @ [", linkedin_url, "] \t<<<<")
+    driver.get(linkedin_url)
+    wait = WebDriverWait(
+        driver, 20, poll_frequency=1,
+        ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException]
+    )
+    # driver.implicitly_wait(random.randint(RAND_TIME_START, RAND_TIME_END))
+
+    username = driver.find_element(By.ID, "session_key")
+    print("Using Username: ", config.username)
+    username.send_keys(config.username)
+
+    password = driver.find_element(By.ID, "session_password")
+    print("Using Password: ", config.password)
+    password.send_keys(config.password)
+
+    submit_button = driver.find_element(By.CLASS_NAME, "sign-in-form__submit-btn--full-width")
+    print("Clicking Submit Button")
+    submit_button.click()
+
+    print(" ----- Login Done ----")

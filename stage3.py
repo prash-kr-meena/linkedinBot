@@ -1,4 +1,19 @@
-from dependencies import *
+from selenium import webdriver
+import lxml
+from bs4 import BeautifulSoup as soup
+
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib2 import urlopen
+from csv import writer
+import config
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+import pandas as pd
+import time
+
 from login import *
 import config
 
@@ -6,10 +21,15 @@ df = pd.read_csv("roles_of_person_in_pervious_list.csv")
 df.drop_duplicates(keep=False, inplace=True)
 arr = list(df['Company_Name'])
 names = list(df['Name'])
-hitWords = ['full-time', 'part-time', 'internship', 'contract', 'crio.Do', 'girlscript foundation', 'girlscript summer of code', 'google summer of code', 'major league hacking', 'placementunit|bitspilani',
-            'highcommissionofcanadainindia', 'australiandepartmentofhomeaffairs', 'googlesummerofcode', 'majorleaguehacking', 'australiandepartmentofhomeaffairs', 'highcommissionofcanadainindia', 'britishrirways', 'resumevogue']
-blockWords = ['placement', 'university', 'bachleors', 'college', 'institute', 'jecrc', 'daiict', 'student', 'ieee', 'dtu', 'self-employed',
-              'self', 'iit', 'da-iict', 'army', 'school', 'corona', 'mit', 'harvard', 'freelancing', 'freelancer', 'freelance', 'youtuber']
+hitWords = ['full-time', 'part-time', 'internship', 'contract', 'crio.Do', 'girlscript foundation',
+            'girlscript summer of code', 'google summer of code', 'major league hacking', 'placementunit|bitspilani',
+            'highcommissionofcanadainindia', 'australiandepartmentofhomeaffairs', 'googlesummerofcode',
+            'majorleaguehacking', 'australiandepartmentofhomeaffairs', 'highcommissionofcanadainindia',
+            'britishrirways', 'resumevogue']
+blockWords = ['placement', 'university', 'bachleors', 'college', 'institute', 'jecrc', 'daiict', 'student', 'ieee',
+              'dtu', 'self-employed',
+              'self', 'iit', 'da-iict', 'army', 'school', 'corona', 'mit', 'harvard', 'freelancing', 'freelancer',
+              'freelance', 'youtuber']
 people = set()
 for j in range(len(arr)):
     designation = " ".join(arr[j].split())
@@ -39,13 +59,13 @@ for j in range(len(people)):
     if count > 99:
         break
     driver.get("https://www.linkedin.com/search/results/companies/?keywords=" +
-               str(people[j])+"&origin=GLOBAL_SEARCH_HEADER")
+               str(people[j]) + "&origin=GLOBAL_SEARCH_HEADER")
     src = driver.page_source
     parser = soup(src, "html.parser")
     userList = parser.find_all(
         "li", {"class": "reusable-search__result-container"})
     if len(userList) != 0:
-        links = userList[0].a['href']+"/people/"
+        links = userList[0].a['href'] + "/people/"
         driver.get(links)
         time.sleep(10)
         src = driver.page_source
@@ -84,4 +104,3 @@ for j in range(len(people)):
                 pass
     else:
         pass
-

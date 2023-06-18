@@ -97,8 +97,8 @@ def apply_by_job_openings(open_job_links):
 
     # create and open file to write
     filename = "names_and_positions.csv"
-    File = open(filename, 'a')
-    writer_object = writer(File)
+    file = open(filename, 'a')
+    writer_object = writer(file)
 
     # write the file header
     file_headers = ["Name", "ProfileLinks", "current_designation", "current_location"]

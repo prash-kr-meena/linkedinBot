@@ -10,12 +10,12 @@ from config import *
 
 
 def login():
-    print(" ----- Initiating Login ----")
+    print("\n----- Initiating Login ----")
 
     linkedin_url = "https://www.linkedin.com"
     print("Opening Linkedin @ [", linkedin_url, "] \t<<<<")
     driver.get(linkedin_url)
-    wait = WebDriverWait(
+    WebDriverWait(
         driver, 20, poll_frequency=1,
         ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException]
     )
@@ -33,4 +33,4 @@ def login():
     print("Clicking Submit Button")
     submit_button.click()
 
-    print(" ----- Login Done ----")
+    print("----- Login Done ----\n\n")

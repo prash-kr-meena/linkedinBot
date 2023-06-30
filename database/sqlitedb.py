@@ -156,7 +156,7 @@ class SQLiteDB:
 
     def column_names(self, query: str = None) -> tuple[str, ...]:
         """Retrieves the list of column names returned by the query"""
-        meta = self.prepare(query).description
+        meta = self.prepare_and_execute(query).description
         return tuple(row[0] for idx, row in enumerate(meta))
 
     def rowset2json(self, query: str) -> str:
@@ -171,7 +171,7 @@ class SQLiteDB:
             columns=columns
         )
 
-    def prepare(
+    def prepare_and_execute(
             self,
             query: str = None,
             query_params: Union[tuple, dict] = (),
@@ -217,22 +217,22 @@ class SQLiteDB:
     def execute_nonquery(self, query: str, query_params: Union[tuple, dict] = ()) -> int:
         """Executes a DML/DDL statement and returns the 'changes' count."""
         accrued_changes = self.con.total_changes
-        self.prepare(query, query_params)
+        self.prepare_and_execute(query, query_params)
         return self.con.total_changes - accrued_changes
 
     def execute_script(self, query: str) -> int:
         """Executes multiple DML/DDL statements and returns the 'changes' count."""
         accrued_changes = self.con.total_changes
-        self.prepare(query, is_script=True)
+        self.prepare_and_execute(query, is_script=True)
         return self.con.total_changes - accrued_changes
 
     def fetch_scalar(self, query: str, query_params: Union[tuple, dict] = ()) -> TScalar:
         """Fetches a scalar value from database."""
-        return self.prepare(query, query_params).fetchone()[0]
+        return self.prepare_and_execute(query, query_params).fetchone()[0]
 
     def fetch_rowset(self, query: str, query_params: Union[tuple, dict] = ()) -> TRowSet:
         """Fetches all rows returned by the query."""
-        return self.prepare(query, query_params).fetchall()
+        return self.prepare_and_execute(query, query_params).fetchall()
 
     def fetch_json_rowset(self, query: str, query_params: Union[tuple, dict] = ()) -> TRowSet:
         """Fetches all rows returned by the query via a JSON container.
@@ -243,7 +243,7 @@ class SQLiteDB:
         json module.
         """
         return json.loads(
-            self.prepare(self.rowset2json(query), query_params).fetchone()[0]
+            self.prepare_and_execute(self.rowset2json(query), query_params).fetchone()[0]
         )
 
     def fetch_page(self, query: str = None, query_params: Union[tuple, dict] = (),
@@ -254,7 +254,7 @@ class SQLiteDB:
         size (if provided, the associated parameter is updated). For subsequent
         pages, call this method with no arguments.
         """
-        return self.prepare(query, query_params=query_params, page_size=page_size).fetchmany()
+        return self.prepare_and_execute(query, query_params=query_params, page_size=page_size).fetchmany()
 
     def fetch_page_gen(self, query: str, query_params: Union[tuple, dict] = (),
                        page_size: int = None) -> Generator[list[tuple], None, None]:
@@ -264,7 +264,7 @@ class SQLiteDB:
         size (if provided, the associated parameter is updated). For subsequent
         pages, call this method with no arguments.
         """
-        self.prepare(query, query_params=query_params, page_size=page_size)
+        self.prepare_and_execute(query, query_params=query_params, page_size=page_size)
         page = self.cur.fetchmany()
         while len(page) > 0:
             yield page

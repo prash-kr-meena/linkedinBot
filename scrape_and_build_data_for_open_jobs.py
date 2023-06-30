@@ -4,8 +4,8 @@ from csv import writer
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
-import config
-from data_extractors.company_details_extractor__old import get_company_id_2_job_link_mapping
+import config.user_config
+import config.constants
 from login_to_linkedin import login
 from definitions import driver
 
@@ -16,7 +16,7 @@ def form_correct_search_url(incomplete_search_url, company_id):
     # Form correct search URL
     search_url = incomplete_search_url \
         .replace('__COMPANY_ID__', f'"{company_id}"') \
-        .replace('__SEARCH_KEYWORD__', config.search_people_query)
+        .replace('__SEARCH_KEYWORD__', config.user_config.search_people_query)
     return search_url
 
 
@@ -71,20 +71,20 @@ def get_list_of_users_with_details(company_name: str, company_id: str) -> list[d
     # We will return a list of users where firstly we would have 1st level connections
     # then we will have 2nd connection and then 3rd connection
 
-    if config.message_to_1st_connections:
-        search_url = form_correct_search_url(config.search_1st_connections, company_id)
+    if config.user_config.message_to_1st_connections:
+        search_url = form_correct_search_url(config.constants.search_uri_for_1st_level_connections, company_id)
         _1st_connection_users = extract_user_details(search_url)
         all_user.extend(_1st_connection_users)
         print_users_of_connection(_1st_connection_users, company_name, '2nd')
 
-    if config.message_to_2nd_connections:
-        search_url = form_correct_search_url(config.search_2nd_connections, company_id)
+    if config.user_config.message_to_2nd_connections:
+        search_url = form_correct_search_url(config.constants.search_uri_for_2nd_level_connections, company_id)
         _2nd_connection_users = extract_user_details(search_url)
         all_user.extend(_2nd_connection_users)
         print_users_of_connection(_2nd_connection_users, company_name, '2nd')
 
-    if config.message_for_3rd_connection:
-        search_url = form_correct_search_url(config.search_3rd_connections, company_id)
+    if config.user_config.message_for_3rd_connection:
+        search_url = form_correct_search_url(config.constants.search_uri_for_3rd_level_connections, company_id)
         _3rd_connection_users = extract_user_details(search_url)
         all_user.extend(_3rd_connection_users)
         print_users_of_connection(_3rd_connection_users, company_name, '3rd')

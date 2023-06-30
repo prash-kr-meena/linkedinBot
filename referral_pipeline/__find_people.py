@@ -1,17 +1,25 @@
-import config.user_config
-from data_extractors.company_details_extractor import extract_company_details
-from data_extractors.job_details_extractor import extract_jobs_details
+from data_extractors.user_details_extractor import extract_1st_connections_details, extract_2nd_connections_details, \
+    extract_3rd_connections_details
 from login_to_linkedin import login
-from config import user_config
+from model.company import Company
+from repository.repository import find_all_companies, persist_connections
 
 
-def find_people_for_asking_referral(open_job_links: list[str]):
-    jobs = extract_jobs_details(open_job_links)
-    for job in jobs:
-        companies = extract_company_details(job)
-    pass
+def find_and_persist_people_for_asking_referral():
+    print("\n\n----- Finding People for Referral based on Open Jobs -----")
+
+    companies: list[Company] = find_all_companies()
+    for company in companies:
+        first_level_connections = extract_1st_connections_details(company)
+        persist_connections(first_level_connections)
+
+        second_level_connections = extract_2nd_connections_details(company)
+        persist_connections(second_level_connections)
+
+        third_level_connections = extract_3rd_connections_details(company)
+        persist_connections(third_level_connections)
 
 
 if __name__ == '__main__':
     login()
-    find_people_for_asking_referral(user_config.open_job_links)
+    find_and_persist_people_for_asking_referral()

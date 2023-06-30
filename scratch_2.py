@@ -66,7 +66,7 @@ pp.pprint(function_list)
 # ========================
 
 query = function_list_sql
-dbm.prepare(query)
+dbm.prepare_and_execute(query)
 column_names = dbm.column_names()
 print(column_names)
 

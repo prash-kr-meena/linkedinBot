@@ -23,7 +23,7 @@ def extract_jobs_details(open_job_links: list[str]) -> list[Job]:
         # Selecting the HTML Element - H1 with the given class
         html_parser = soup(driver.page_source, "html.parser")
         job_title = html_parser.find("h1", {"class": "jobs-unified-top-card__job-title"}).text.strip()
-        job = Job(job_title, job_link)
+        job = Job(job_link, job_title)
         extracted_jobs.append(job)
 
         print(job.job_title.ljust(50, '`'), job.job_link.ljust(50, ' '))

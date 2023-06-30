@@ -1,4 +1,5 @@
 
+
 open_job_links = [
     "https://www.linkedin.com/jobs/view/3633599665",
     "https://www.linkedin.com/jobs/view/3638053478",
@@ -27,18 +28,3 @@ NUMBER_OF_PEOPLE_TO_MESSAGE_OF_A_COMPANY = 25
 # (ie job_links can be any number, its just total should be from only 4 companies)
 # so the total messages sent will be 25 * 4 = 100
 # where 100 will not be too much messages
-
-
-#
-# ================== Constants ===================
-#
-RAND_TIME_START: int = 0
-RAND_TIME_END: int = 10
-
-search_1st_connections = 'https://www.linkedin.com/search/results/people/?currentCompany=[__COMPANY_ID__]&keywords=__SEARCH_KEYWORD__&network=["F"]&origin=FACETED_SEARCH'
-search_2nd_connections = 'https://www.linkedin.com/search/results/people/?currentCompany=[__COMPANY_ID__]&keywords=__SEARCH_KEYWORD__&network=["S"]&origin=FACETED_SEARCH'
-search_3rd_connections = 'https://www.linkedin.com/search/results/people/?currentCompany=[__COMPANY_ID__]&keywords=__SEARCH_KEYWORD__&network=["O"]&origin=FACETED_SEARCH'
-
-# your dream companies list, you can add more companies also
-# companies_list = ["amazon", "microsoft", "apple", "google", "facebook"]
-# companies_list = ["amazon"]

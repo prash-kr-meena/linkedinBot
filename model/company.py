@@ -2,7 +2,7 @@ from __future__ import annotations
 
 
 class Company:
-    company_id: str
+    company_id: str  # Primary Key
     company_name: str
     company_link: str
 

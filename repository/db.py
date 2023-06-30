@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS main.company
 (
     company_id   text PRIMARY KEY,
     company_name text NOT NULL,
-    company_link text NOT NULL
+    company_link text NOT NULL UNIQUE 
 );
 
 CREATE TABLE IF NOT EXISTS main.job

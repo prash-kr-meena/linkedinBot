@@ -2,12 +2,12 @@ import random
 
 from selenium.common import ElementNotVisibleException, ElementNotSelectableException
 
+from config.constants import RAND_TIME_START, RAND_TIME_END
 from definitions import driver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 
 from config import user_config
-from config.user_config import RAND_TIME_START, RAND_TIME_END
 
 
 def login():

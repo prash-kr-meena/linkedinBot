@@ -1,4 +1,5 @@
-
+username = "-"
+password = "-"
 
 open_job_links = [
     "https://www.linkedin.com/jobs/view/3633599665",

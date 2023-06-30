@@ -14,7 +14,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 import pandas as pd
 import time
 
-from login import *
+from login_to_linkedin import *
 
 df = pd.read_csv("names_and_positions.csv")
 profileLinks = df['ProfileLinks']

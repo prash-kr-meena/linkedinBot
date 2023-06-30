@@ -4,7 +4,7 @@
 # from selenium.common import ElementNotVisibleException, ElementNotSelectableException
 # from selenium.webdriver.support.wait import WebDriverWait
 #
-# from chrome_driver import driver
+# from definitions import driver
 #
 # HREF: str = "href"
 #

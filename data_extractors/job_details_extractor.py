@@ -2,7 +2,7 @@ from selenium.common import ElementNotVisibleException, ElementNotSelectableExce
 from selenium.webdriver.support.wait import WebDriverWait
 
 from bs4 import BeautifulSoup as soup
-from chrome_driver import driver
+from definitions import driver
 from config.user_config import open_job_links
 from login_to_linkedin import login
 from model.job import Job

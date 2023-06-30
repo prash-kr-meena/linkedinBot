@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup as soup
 from csv import writer
 from login_to_linkedin import login
-from chrome_driver import driver
+from definitions import driver
 from selenium.webdriver.common.by import By
 import config
 

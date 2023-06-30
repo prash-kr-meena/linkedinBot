@@ -2,7 +2,7 @@ import random
 
 from selenium.common import ElementNotVisibleException, ElementNotSelectableException
 
-from chrome_driver import driver
+from definitions import driver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 

@@ -2,7 +2,7 @@ from selenium.common import ElementNotVisibleException, ElementNotSelectableExce
 from selenium.webdriver.support.wait import WebDriverWait
 from model.company import Company
 from urllib import parse
-from chrome_driver import driver
+from definitions import driver
 from config.user_config import open_job_links
 from data_extractors.job_details_extractor import extract_jobs_details
 from login_to_linkedin import login

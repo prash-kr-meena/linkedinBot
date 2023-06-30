@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 import config
 from data_extractors.company_details_extractor__old import get_company_id_2_job_link_mapping
 from login_to_linkedin import login
-from chrome_driver import driver
+from definitions import driver
 
 HREF: str = "href"
 

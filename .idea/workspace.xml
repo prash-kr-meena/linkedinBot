@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98441ea1-235b-4e81-aebd-2d65150c6997" name="Changes" comment="correcting errors">
-      <change beforePath="$PROJECT_DIR$/config/user_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/user_config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/395057d7-5073-4812-81eb-08c8c0573b78.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/798d69b1-ac26-4a0a-bf8d-e174777b8a31.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/829aedf2-aad8-4a62-b10a-a0e867589dbe.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/88e47fe6-2527-4665-84a1-745eaf3fabe4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linkedin_referral.db" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +107,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1688205566834</updated>
-      <workItem from="1688205570405" duration="14065000" />
+      <workItem from="1688205570405" duration="14491000" />
     </task>
     <task id="LOCAL-00001" summary="correcting errors">
       <option name="closed" value="true" />

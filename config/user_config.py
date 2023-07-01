@@ -1,7 +1,5 @@
 
-
 open_job_links = [
-    "https://www.linkedin.com/jobs/view/3633599665",
     "https://www.linkedin.com/jobs/view/3638053478",
     "https://www.linkedin.com/jobs/view/3638057256",
     "https://www.linkedin.com/jobs/view/3638053484",

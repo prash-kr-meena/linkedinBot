@@ -6,11 +6,12 @@ from typing import Union, TypeVar, Iterable, Generator
 
 try:
     import database_logger
+
     dblogger = logging.getLogger(database_logger.DBLOGGER_NAME)
-    logging.basicConfig(level=logging.DEBUG)
+    # logging.basicConfig(level=logging.DEBUG)
 except:
     dblogger = logging.getLogger("database")
-    logging.basicConfig(level=logging.DEBUG)
+    # logging.basicConfig(level=logging.DEBUG)
 
 # Defines type hint for row set result of an SQL/DQL query returned by DB API.
 # A successful call returns a list of tuples, with each tuple holding values
@@ -75,7 +76,7 @@ class SQLiteDB:
         self.path = ""
         self.con = None
         self.cur = None
-        print(f"Created DB Connection - {uri}")
+        print(f"Creating DB Connection - {uri}")
 
     def __del__(self):
         """Closes the sqlite3.Cursor and sqlite3.Connection objects before destruction."""
@@ -107,9 +108,11 @@ class SQLiteDB:
 
         is_uri: bool = self.uri[0:5].lower() == "file:"
         try:  # Open database connection, get cursor
+            self.uri = self.uri[5:]
             self.con = sqlite3.connect(self.uri, isolation_level=txn_type.value, uri=is_uri)
             self.path = self.con.cursor().execute(DB_META_SQL["main_path"]).fetchone()[0]
             self.cur = self.con.cursor()
+            print(f"DB Connection Created - Path: {self.path} \tConnection: {self.con} \tCursor: {self.cur}")
         except sqlite3.OperationalError as err:
             dblogger.exception(err.args[0])
             raise
@@ -207,10 +210,10 @@ class SQLiteDB:
 
         try:
             if not is_script:
-                if not isinstance(query_params, list):
-                    cur = self.cur.execute(query, query_params)
-                else:
+                if isinstance(query_params, list):
                     cur = self.cur.executemany(query, query_params)
+                else:
+                    cur = self.cur.execute(query, query_params)
             else:
                 cur = self.cur.executescript(query)
         except sqlite3.DatabaseError as err:

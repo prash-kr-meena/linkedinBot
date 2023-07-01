@@ -35,7 +35,7 @@ function_list_sql_named = {
 # txn_type=sdb.TransactionType.DEFERRED - default, matching the default behavior
 # of the sqlite3 module, with implicit transactions started before UPD/DEL/INS
 # dbm = sdb.SQLiteDB(":memory:").open(txn_type=sdb.TransactionType.DEFERRED)
-dbm = sdb.SQLiteDB("file:database").open(txn_type=sdb.TransactionType.DEFERRED)
+dbm = sdb.SQLiteDB("file:database.db").open(txn_type=sdb.TransactionType.DEFERRED)
 
 # ========================
 # ===== Fetch Scalar =====

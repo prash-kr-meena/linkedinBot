@@ -7,7 +7,7 @@ from definitions import driver
 from login_to_linkedin import login
 from model.company import Company
 from model.connection import Connection
-from repository.repository import find_all_companies
+from repository.referral_repository import find_all_companies
 
 
 def __build_connection_search_url(incomplete_search_url, company_id):

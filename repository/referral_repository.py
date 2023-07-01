@@ -1,7 +1,6 @@
-from ctypes import Union
 from typing import Optional
 
-from database.sqlitedb import TRowSet, TRow
+from database.sqlitedb import TRowSet
 from model.company import Company
 from model.connection import Connection
 from model.job import Job
@@ -18,13 +17,13 @@ def persist_job(job: Job, company: Company):
 
     persist_company(company)
 
-    dbm.prepare_and_execute(
+    dbm.execute_nonquery(
         query="INSERT INTO job values (:job_link, :job_title, :referral_submitted, :company_id)",
         query_params={
-            'job_link': job.job_link,
-            'job_title': job.job_title,
-            'referral_submitted': job.referral_submitted,
-            'company_id': company.company_id
+            "job_link": job.job_link,
+            "job_title": job.job_title,
+            "referral_submitted": job.referral_submitted,
+            "company_id": company.company_id
         }
     )
 
@@ -37,12 +36,12 @@ def persist_company(company: Company):
         print("Company exists in DB, No persistence required")
         return
 
-    dbm.prepare_and_execute(
+    dbm.execute_nonquery(
         query="INSERT INTO company values (:company_id, :company_name, :company_link)",
         query_params={
-            'company_id': company.company_id,
-            'company_name': company.company_name,
-            'company_link': company.company_link
+            "company_id": company.company_id,
+            "company_name": company.company_name,
+            "company_link": company.company_link
         }
     )
 
@@ -88,13 +87,13 @@ def find_all_companies() -> list[Company]:
 
 def persist_connection(connection: Connection) -> None:
     print(f"Persisting Connection  '{connection.connection_name}'")
-    dbm.prepare_and_execute(
+    dbm.execute_nonquery(
         query="INSERT INTO connection values (:connection_link, :connection_name, :company_id, :last_message_time)",
         query_params={
-            'connection_link': connection.connection_link,
-            'connection_name': connection.connection_name,
-            'company_id': connection.company_id,
-            'last_message_time': 'time'
+            "connection_link": connection.connection_link,
+            "connection_name": connection.connection_name,
+            "company_id": connection.company_id,
+            "last_message_time": "some time from code"
         }
     )
 

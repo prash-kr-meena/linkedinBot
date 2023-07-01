@@ -2,7 +2,7 @@ from data_extractors.user_details_extractor import extract_1st_connections_detai
     extract_3rd_connections_details
 from login_to_linkedin import login
 from model.company import Company
-from repository.repository import find_all_companies, persist_connections
+from repository.referral_repository import find_all_companies, persist_connections
 
 
 def find_and_persist_people_for_asking_referral():

@@ -3,7 +3,7 @@ from data_extractors.company_details_extractor import extract_company_details
 from data_extractors.job_details_extractor import extract_jobs_details
 from login_to_linkedin import login
 from model.job import Job
-from repository.repository import persist_job
+from repository.referral_repository import persist_job
 
 
 def find_and_save_company_details(open_job_links: list[str]):

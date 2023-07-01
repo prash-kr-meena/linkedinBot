@@ -12,7 +12,7 @@ print('ROOT_DIR - ', ROOT_DIR)
 # --------------------------------------------------------
 
 options = Options()
-# options.add_experimental_option("detach", True)
+options.add_experimental_option("detach", True)
 
 driver = webdriver.Chrome(
     service=Service(ChromeDriverManager().install()),

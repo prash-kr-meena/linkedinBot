@@ -6,10 +6,11 @@ from typing import Union, TypeVar, Iterable, Generator
 
 try:
     import database_logger
-
     dblogger = logging.getLogger(database_logger.DBLOGGER_NAME)
+    logging.basicConfig(level=logging.DEBUG)
 except:
     dblogger = logging.getLogger("database")
+    logging.basicConfig(level=logging.DEBUG)
 
 # Defines type hint for row set result of an SQL/DQL query returned by DB API.
 # A successful call returns a list of tuples, with each tuple holding values
@@ -99,9 +100,11 @@ class SQLiteDB:
 
     def open(self, txn_type: TransactionType = TransactionType.DEFERRED,
              row_factory: type(sqlite3.Row) = None) -> TSQLiteDB:
+
         """Opens a database connection (if not previously opened)."""
         if self.con is not None:
             raise sqlite3.OperationalError('Connection already open!')
+
         is_uri: bool = self.uri[0:5].lower() == "file:"
         try:  # Open database connection, get cursor
             self.con = sqlite3.connect(self.uri, isolation_level=txn_type.value, uri=is_uri)
@@ -113,6 +116,7 @@ class SQLiteDB:
         except sqlite3.Error as err:
             dblogger.exception(f"Unexpected {err=}, {type(err)=}")
             raise
+
         self.con.row_factory = row_factory
         return self
 

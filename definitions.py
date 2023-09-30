@@ -12,7 +12,7 @@ print('ROOT_DIR - ', ROOT_DIR)
 # --------------------------------------------------------
 
 options = Options()
-# options.add_experimental_option("detach", True)  # This is to not close the Chrom Tab after script completion
+options.add_experimental_option("detach", True)  # This is to not close the Chrom Tab after script completion
 
 # Options so that chrome can't detect if it is being controlled via selenium
 options.add_experimental_option("excludeSwitches", ["enable-automation"])

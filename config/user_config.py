@@ -1,9 +1,7 @@
-
 open_job_links = [
-    "https://www.linkedin.com/jobs/view/3638053478",
-    "https://www.linkedin.com/jobs/view/3638057256",
-    "https://www.linkedin.com/jobs/view/3638053484",
-    "https://www.linkedin.com/jobs/view/3637365200"
+    "https://www.linkedin.com/jobs/view/3713409325",
+    "https://www.linkedin.com/jobs/view/3721909031",
+    "https://www.linkedin.com/jobs/view/3727505411",
 ]
 
 message_for_1st_connection = "Test message For 1st"

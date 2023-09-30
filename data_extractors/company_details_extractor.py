@@ -26,7 +26,8 @@ def __get_company_link_from_job_opening_page(job: Job) -> str:
 
     company_uri = None
     for anchor in all_anchor_on_job_page:
-        if "/company/" in anchor[HREF]:
+        # handle cases where 'href' is not present in the anchor itself
+        if 'href' in anchor.attrs and "/company/" in anchor[HREF]:
             company_uri = anchor[HREF]
             # print(company_uri, "  <<-- Found The URI,\t Validate!!")
             print("Company Link :", company_uri)

@@ -1,4 +1,6 @@
 import random
+import time
+from bs4 import BeautifulSoup as soup
 
 from selenium.common import JavascriptException
 from selenium.webdriver.common.by import By
@@ -17,12 +19,21 @@ def login():
     driver.get(linkedin_url)
     WebDriverWait(driver, 1000)
     driver.implicitly_wait(random.randint(RAND_TIME_START, RAND_TIME_END))
+    time.sleep(5)
 
     try:
         # handle situations where we get the join-in form instead of login
         driver.execute_script("document.getElementsByClassName('flip-card')[0].classList.add('show-login');")
     except JavascriptException:
         pass
+
+    html_parser = soup(driver.page_source, "html.parser")
+    body = html_parser.find("body")
+    while body.text == "":
+        # Empty Body Page did not load properly, refresh
+        driver.refresh()
+        html_parser = soup(driver.page_source, "html.parser")
+        body = html_parser.find("body")
 
     username = driver.find_element(By.ID, "session_key")
     print("Using Username: ", user_config.username)

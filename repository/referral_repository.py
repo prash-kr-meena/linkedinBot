@@ -26,6 +26,7 @@ def persist_job(job: Job, company: Company):
             "company_id": company.company_id
         }
     )
+    dbm.commit()
 
 
 def persist_company(company: Company):
@@ -44,6 +45,7 @@ def persist_company(company: Company):
             "company_link": company.company_link
         }
     )
+    dbm.commit()
 
 
 def find_company_by_id(company_id: str) -> Optional[Company]:
@@ -93,9 +95,10 @@ def persist_connection(connection: Connection) -> None:
             "connection_link": connection.connection_link,
             "connection_name": connection.connection_name,
             "company_id": connection.company_id,
-            "last_message_time": "some time from code"
+            "last_message_time": None
         }
     )
+    dbm.commit()
 
 
 def persist_connections(connections: list[Connection]) -> None:

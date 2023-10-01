@@ -48,7 +48,7 @@ def persist_company(company: Company):
     dbm.commit()
 
 
-def find_company_by_id(company_id: str) -> Optional[Company]:
+def find_company_by_id(company_id: str) -> Company | None:
     companies_iterator: TRowSet = dbm.fetch_rowset(
         query="SELECT * FROM company where company_id=:company_id",
         query_params={'company_id': company_id}
@@ -63,7 +63,7 @@ def find_company_by_id(company_id: str) -> Optional[Company]:
         return company
 
 
-def find_job_by_id(job_link: str) -> Optional[Job]:
+def find_job_by_id(job_link: str) -> Job | None:
     jobs_iterator: TRowSet = dbm.fetch_rowset(
         query="SELECT * FROM job where job_link=:job_link",
         query_params={'job_link': job_link}
@@ -78,6 +78,22 @@ def find_job_by_id(job_link: str) -> Optional[Job]:
         return job
 
 
+def find_jobs_by_company_id(company_id: str) -> list[Job]:
+    jobs_iterator: TRowSet = dbm.fetch_rowset(
+        query="SELECT * FROM job where company_id=:company_id",
+        query_params={'company_id': company_id}
+    )
+    jobs = list(jobs_iterator)
+    if len(jobs) == 0:
+        return []
+
+    all_jobs_by_company = []
+    for job in jobs:
+        all_jobs_by_company.append(Job(job[0], job[1], job[2]))
+
+    return all_jobs_by_company
+
+
 def find_all_companies() -> list[Company]:
     companies_iterator: TRowSet = dbm.fetch_rowset(query="SELECT * FROM company")
     companies = []
@@ -90,11 +106,12 @@ def find_all_companies() -> list[Company]:
 def persist_connection(connection: Connection) -> None:
     print(f"Persisting Connection  '{connection.connection_name}'")
     dbm.execute_nonquery(
-        query="INSERT INTO connection values (:connection_link, :connection_name, :company_id, :last_message_time)",
+        query="INSERT INTO connection values (:connection_link, :connection_name, :company_id, :connection_level,  :last_message_time)",
         query_params={
             "connection_link": connection.connection_link,
             "connection_name": connection.connection_name,
             "company_id": connection.company_id,
+            "connection_level": connection.connection_level,
             "last_message_time": None
         }
     )
@@ -106,7 +123,7 @@ def persist_connections(connections: list[Connection]) -> None:
         persist_connection(connection)
 
 
-def find_connection_by_id(connection_link: str):
+def find_connection_by_id(connection_link: str) -> Connection | None:
     connection_iterator: TRowSet = dbm.fetch_rowset(
         query="SELECT * FROM connection where connection_link=:connection_link",
         query_params={'connection_link': connection_link}
@@ -119,3 +136,12 @@ def find_connection_by_id(connection_link: str):
         connection_tuple = tuple(connections[0])
         connection = Connection(connection_tuple[0], connection_tuple[1], connection_tuple[2])
         return connection
+
+
+def find_all_connections() -> list[Connection]:
+    connections_iterator: TRowSet = dbm.fetch_rowset(query="SELECT * FROM connection")
+    connections = []
+    for connection_tuple in connections_iterator:
+        connection = Connection(connection_tuple[0], connection_tuple[1], connection_tuple[2], connection_tuple[3])
+        connections.append(connection)
+    return connections

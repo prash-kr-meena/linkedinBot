@@ -83,7 +83,7 @@ def get_list_of_users_with_details(company_name: str, company_id: str) -> list[d
         all_user.extend(_2nd_connection_users)
         print_users_of_connection(_2nd_connection_users, company_name, '2nd')
 
-    if config.user_config.message_for_3rd_connection:
+    if config.user_config.referral_message_for_3rd_connection:
         search_url = form_correct_search_url(config.constants.search_uri_for_3rd_level_connections, company_id)
         _3rd_connection_users = extract_user_details(search_url)
         all_user.extend(_3rd_connection_users)

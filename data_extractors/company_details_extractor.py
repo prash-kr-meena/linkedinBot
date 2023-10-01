@@ -1,3 +1,5 @@
+import time
+
 from selenium.common import ElementNotVisibleException, ElementNotSelectableException
 from selenium.webdriver.support.wait import WebDriverWait
 from model.company import Company
@@ -19,6 +21,7 @@ def __get_company_link_from_job_opening_page(job: Job) -> str:
         driver, 1000, poll_frequency=1,
         ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException]
     )
+    time.sleep(2)
 
     # Selecting the HTML Element    -   Where it shows the company name on the UI
     html_parser = soup(driver.page_source, "html.parser")

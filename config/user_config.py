@@ -1,14 +1,49 @@
+
+
 open_job_links = [
-    "https://www.linkedin.com/jobs/view/3713409325",
-    "https://www.linkedin.com/jobs/view/3721909031",
-    "https://www.linkedin.com/jobs/view/3727505411",
+    "https://www.linkedin.com/jobs/view/3721132004",
+    "https://www.linkedin.com/jobs/view/3714309040",
+    "https://www.linkedin.com/jobs/view/3704880768",
+    "https://www.linkedin.com/jobs/view/3726539082"
 ]
 
-message_for_1st_connection = "Test message For 1st"
-message_for_2nd_connection = "Test message for 2nd"
-message_for_3rd_connection = "Test message for 3rd"
+# --------------------------------------------------------------------
 
-search_people_query = "talent"
+referral_message_for_1st_connection = """
+Hey {name}, 
+hope this message finds you well.
+I am keen to apply for the below opportunity at {company_name}.
+A brief chat to learn more and seek your referral would be fantastic.
+
+{job_links}
+"""
+
+referral_message_for_2nd_connection = """
+Hey {name}, 
+hope this message finds you well.
+I am keen to apply for the below opportunity at {company_name}.
+A brief chat to learn more and seek your referral would be fantastic.
+
+{job_links}
+"""
+
+referral_message_for_3rd_connection = """
+Hey {name}, 
+hope this message finds you well.
+I am keen to apply for the below opportunity at {company_name}.
+A brief chat to learn more and seek your referral would be fantastic.
+
+{job_links}
+"""
+
+# --------------------------------------------------------------------
+
+connection_message_for_1st_connection = "1. hi, how are you {name}"
+connection_message_for_2nd_connection = "2. hi, how are you {name}"
+connection_message_for_3rd_connection = "3. hi, how are you {name}"
+
+search_people_query = "people"
+# search_people_query = "talent"
 
 # Note messages will be done in priority, ie firstly priority will be given to 1st connection
 # then to 2nd connection and then 3rd connection

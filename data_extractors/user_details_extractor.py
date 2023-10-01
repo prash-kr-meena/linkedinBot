@@ -17,7 +17,7 @@ def __build_connection_search_url(incomplete_search_url, company_id):
     return search_url
 
 
-def __extract_connection_details_from_page(html_parser, company: Company) -> list[Connection]:
+def __extract_connection_details_from_page(html_parser, company: Company, level: int) -> list[Connection]:
     all_extracted_connections: list[Connection] = []  # List of all connections present on this page
     all_user_sections = html_parser.find_all("li", {"class": "reusable-search__result-container"})
     for user_section in all_user_sections:
@@ -34,25 +34,25 @@ def __extract_connection_details_from_page(html_parser, company: Company) -> lis
 
         if 'search' in profile_link or 'LinkedIn Member' in name:
             # We don't want to save this connection's data as it is not useful, and proceed further
-            print("Connection Data Not Useful, build your network!")
+            print(f"-> Connection Data Not Useful, build your network!")
             continue
 
-        connection = Connection(profile_link, name, company.company_id)
+        connection = Connection(profile_link, name, company.company_id, level)
         print(f"-> {connection.connection_name}")
         all_extracted_connections.append(connection)
 
     return all_extracted_connections
 
 
-def extract_connection_details(company: Company, templated_search_url: str, level: str) -> list[Connection]:
+def extract_connection_details(company: Company, templated_search_url: str, level: int) -> list[Connection]:
     all_connections = []
-    print(f"\n{level} connection @ {company.company_name} \t 1st Page")
+    print(f"\nlevel {level} connection @ {company.company_name} \t 1st Page")
 
     search_url = __build_connection_search_url(templated_search_url, company.company_id)
     driver.get(search_url)
 
     html_parser = soup(driver.page_source, "html.parser")
-    connections_on_first_page = __extract_connection_details_from_page(html_parser, company)
+    connections_on_first_page = __extract_connection_details_from_page(html_parser, company, level)
     all_connections.extend(connections_on_first_page)
 
     try:
@@ -64,10 +64,10 @@ def extract_connection_details(company: Company, templated_search_url: str, leve
 
         print(f"{level} connection @ {company.company_name} \t 2nd Page")
         html_parser = soup(driver.page_source, "html.parser")
-        connections_on_second_page = __extract_connection_details_from_page(html_parser, company)
+        connections_on_second_page = __extract_connection_details_from_page(html_parser, company, level)
         all_connections.extend(connections_on_second_page)
     except NoSuchElementException:
-        # print("2nd Page was not present")
+        print("2nd Page was not present")
         pass
 
     print()

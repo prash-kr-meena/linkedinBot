@@ -1,11 +1,17 @@
-
+# username = "",
+# password = ""
 
 open_job_links = [
-    "https://www.linkedin.com/jobs/view/3721132004",
-    "https://www.linkedin.com/jobs/view/3714309040",
-    "https://www.linkedin.com/jobs/view/3704880768",
-    "https://www.linkedin.com/jobs/view/3726539082"
+    "https://www.linkedin.com/jobs/view/3934783609"  # todo : remove
+    "https://www.linkedin.com/jobs/view/3923614648",
+    "https://www.linkedin.com/jobs/view/3923620268",
+    "https://www.linkedin.com/jobs/view/3917560975",
+    "https://www.linkedin.com/jobs/view/3729048018"
 ]
+
+# open_job_links = [
+#     "https://www.linkedin.com/jobs/view/3934783609"
+# ]
 
 # --------------------------------------------------------------------
 

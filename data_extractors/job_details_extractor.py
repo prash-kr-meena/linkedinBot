@@ -22,7 +22,18 @@ def extract_jobs_details(open_job_links: list[str]) -> list[Job]:
         )
         # Selecting the HTML Element - H1 with the given class
         html_parser = soup(driver.page_source, "html.parser")
-        job_title = html_parser.find("h1", {"class": "job-details-jobs-unified-top-card__job-title"}).text.strip()
+        job_title = None
+        try:
+            title_from_h1 = html_parser.find("h1", {"class": "job-details-jobs-unified-top-card__job-title"})
+            title_from_div = html_parser.find("div", {"class": "job-details-jobs-unified-top-card__job-title"})
+            if title_from_h1 is not None:
+                job_title = title_from_h1.text.strip()
+            else:
+                job_title = title_from_div.text.strip()
+        except:
+            print("Error while parsing for Job title")
+            pass
+
         job = Job(job_link, job_title)
         extracted_jobs.append(job)
 

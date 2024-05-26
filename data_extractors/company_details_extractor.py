@@ -63,7 +63,8 @@ def __get_company_details_from_company_page(company_link: str) -> Company:
 
 def __extract_company_title(html_parser) -> str:
     # Selecting the HTML Element    -   Where it shows the company name
-    company_title = html_parser.find("h1", {"class": "org-top-card-summary__title"}).span.text
+    company_title = html_parser.find("h1", {"class": "org-top-card-summary__title"}).text.strip()
+    # company_title = html_parser.find("h1", {"class": "org-top-card-summary__title"}).span.text
     return company_title
 
 
